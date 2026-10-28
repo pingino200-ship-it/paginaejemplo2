@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Proyecto en Azure Static Web Apps</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        azure: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #0078D4 0%, #50E6FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .azure-card-glow {
+            box-shadow: 0 10px 30px -10px rgba(0, 120, 212, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <!-- Navegación -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30">
+                        <i class="fa-brands fa-microsoft"></i>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight text-white">Azure<span class="text-blue-400">Deploy</span></span>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+                    <a href="#inicio" class="hover:text-blue-400 transition-colors">Inicio</a>
+                    <a href="#caracteristicas" class="hover:text-blue-400 transition-colors">Características</a>
+                    <a href="#despliegue" class="hover:text-blue-400 transition-colors">Guía de Despliegue</a>
+                    <a href="#estado" class="hover:text-blue-400 transition-colors">Estado</a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
+                       class="inline-flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg text-sm font-medium border border-slate-700 transition-all hover:border-slate-600">
+                        <i class="fa-brands fa-github text-lg"></i>
+                        <span>GitHub Repo</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Sección Héroe -->
+        <section id="inicio" class="relative overflow-hidden py-20 lg:py-28">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-slate-900 to-slate-900 pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto">
+                    <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 rounded-full text-xs font-semibold text-blue-400 mb-6">
+                        <span class="flex h-2 w-2 rounded-full bg-blue-400 animate-ping"></span>
+                        <span>Plantilla lista para Azure Static Web Apps</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                        Despliega tus proyectos web en <span class="gradient-text">Azure & GitHub</span>
+                    </h1>
+                    
+                    <p class="text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed">
+                        Una plantilla inicial rápida, ligera y moderna para probar flujos de trabajo de CI/CD automatizados mediante GitHub Actions en Azure.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="#despliegue" class="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-lg shadow-blue-600/30 transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-rocket mr-2"></i> Comenzar Tutorial
+                        </a>
+                        <button id="btn-copy-repo" class="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold border border-slate-700 transition-all">
+                            <i class="fa-regular fa-copy mr-2"></i> Copiar Comando Git
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Características -->
+        <section id="caracteristicas" class="py-16 bg-slate-800/40 border-y border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-white mb-4">¿Por qué esta arquitectura?</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Ventajas clave de combinar la potencia del hosting estático en la nube con la integración continua de GitHub.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Tarjeta 1 -->
+                    <div class="p-6 rounded-2xl bg-slate-800/80 border border-slate-700/60 hover:border-blue-500/50 transition-all duration-300 azure-card-glow">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">CI/CD Automático</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Cada `git push` a la rama principal desencadena una construcción y despliegue directo mediante GitHub Actions.
+                        </p>
+                    </div>
+
+                    <!-- Tarjeta 2 -->
+                    <div class="p-6 rounded-2xl bg-slate-800/80 border border-slate-700/60 hover:border-blue-500/50 transition-all duration-300 azure-card-glow">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">SSL Gratis y CDN global</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Azure asigna automáticamente certificados HTTPS seguros y distribuye el contenido a través de una CDN global.
+                        </p>
+                    </div>
+
+                    <!-- Tarjeta 3 -->
+                    <div class="p-6 rounded-2xl bg-slate-800/80 border border-slate-700/60 hover:border-blue-500/50 transition-all duration-300 azure-card-glow">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-code-branch"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Entornos de Staging</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Los Pull Requests generan previsualizaciones automáticas con su propia URL aislada antes de fusionar cambios a producción.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Guía de Despliegue -->
+        <section id="despliegue" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold text-white mb-8 text-center">Pasos para Desplegar en Azure</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Paso 1 -->
+                        <div class="flex items-start space-x-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm">1</span>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Sube el código a GitHub</h4>
+                                <p class="text-slate-400 text-sm mt-1">Crea un repositorio público o privado e incluye este archivo `index.html` en la raíz.</p>
+                            </div>
+                        </div>
+
+                        <!-- Paso 2 -->
+                        <div class="flex items-start space-x-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm">2</span>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Crea el recurso en Azure Portal</h4>
+                                <p class="text-slate-400 text-sm mt-1">Busca <strong>Static Web Apps</strong> en Azure Portal, haz clic en <em>Crear</em> y vincula tu cuenta de GitHub.</p>
+                            </div>
+                        </div>
+
+                        <!-- Paso 3 -->
+                        <div class="flex items-start space-x-4 p-5 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm">3</span>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Configura el Build Preset</h4>
+                                <p class="text-slate-400 text-sm mt-1">Selecciona <strong>Custom</strong> o <strong>HTML</strong> y deja el `App location` como `/`. ¡Azure creará el workflow de GitHub Actions automáticamente!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estado interactivo / Prueba de JS -->
+        <section id="estado" class="py-16 bg-slate-800/20 border-t border-slate-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h3 class="text-2xl font-bold text-white mb-4">Verificador de Estado de la Sesión</h3>
+                <p class="text-slate-400 text-sm mb-6">Prueba interactiva básica en JS para verificar que los scripts cliente funcionan sin problemas.</p>
+                
+                <div class="p-6 rounded-2xl bg-slate-800 border border-slate-700 max-w-md mx-auto space-y-4">
+                    <div class="flex justify-between items-center text-sm border-b border-slate-700 pb-3">
+                        <span class="text-slate-400">Estado del servidor:</span>
+                        <span class="text-emerald-400 font-medium flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Activo
+                        </span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm border-b border-slate-700 pb-3">
+                        <span class="text-slate-400">Navegador:</span>
+                        <span id="browser-info" class="text-slate-200 font-mono text-xs">Cargando...</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-400">Hora local:</span>
+                        <span id="local-time" class="text-slate-200 font-mono text-xs">--:--:--</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800/80 py-8 text-slate-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-2">
+                <i class="fa-brands fa-microsoft text-blue-500"></i>
+                <span>Desplegado con Azure Static Web Apps</span>
+            </div>
+            <p>&copy; <span id="year"></span> Tu Nombre / Proyecto. Licencia MIT.</p>
+        </div>
+    </footer>
+
+    <!-- Notificación / Toast para el botón de copiar -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-blue-600 text-white px-4 py-2.5 rounded-lg shadow-xl text-sm font-medium transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-2">
+        <i class="fa-solid fa-check-circle"></i>
+        <span>¡Comando copiado al portapapeles!</span>
+    </div>
+
+    <!-- Script de interacción simple -->
+    <script>
+        // Actualizar reloj e información del navegador
+        function updateInfo() {
+            const now = new Date();
+            document.getElementById('local-time').textContent = now.toLocaleTimeString();
+            document.getElementById('year').textContent = now.getFullYear();
+            
+            // Detectar nombre simplificado del navegador
+            const ua = navigator.userAgent;
+            let browser = "Navegador Web";
+            if (ua.includes("Chrome")) browser = "Google Chrome";
+            else if (ua.includes("Firefox")) browser = "Mozilla Firefox";
+            else if (ua.includes("Safari") && !ua.includes("Chrome")) browser = "Apple Safari";
+            else if (ua.includes("Edg")) browser = "Microsoft Edge";
+            
+            document.getElementById('browser-info').textContent = browser;
+        }
+
+        setInterval(updateInfo, 1000);
+        updateInfo();
+
+        // Acción para copiar comando al portapapeles
+        document.getElementById('btn-copy-repo').addEventListener('click', function() {
+            const dummyText = "git clone https://github.com/tu-usuario/tu-repositorio.git";
+            
+            // Creación de textarea auxiliar para execCommand
+            const el = document.createElement('textarea');
+            el.value = dummyText;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            // Mostrar notificación Toast
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
